@@ -16,6 +16,7 @@ namespace MikeyPomodorosApp
         public List<string> breakSongs;
         public List<string> longBreakSongs;
         public List<string> currentPlaylist;
+        public int playlistIndex;
         private System.Timers.Timer fadeOutTimer;
 
         public MusicPlayer()
@@ -29,8 +30,22 @@ namespace MikeyPomodorosApp
 
         private void Player_MediaEnded(object? sender, EventArgs e)
         {
-            player.Open(new Uri(currentPlaylist[0], UriKind.Relative));
-            currentPlaylist.RemoveAt(0);
+            playNextSong();
+        }
+
+        private void playNextSong()
+        {
+            player.Open(new Uri(currentPlaylist[playlistIndex], UriKind.Relative));
+            if (currentPlaylist.Count <= playlistIndex + 1 )
+            {
+                currentPlaylist = currentPlaylist.OrderBy(i => Guid.NewGuid()).ToList();
+                playlistIndex = 0;  
+            }
+            else
+            {
+                playlistIndex++;
+            }
+            player.Play();
         }
 
         public void loadPlaylist(TimerType type)
@@ -51,13 +66,20 @@ namespace MikeyPomodorosApp
 
         public void Play()
         {
-            player.Volume = 0.5;
-            player.Play();
+            if (player.HasAudio == true)
+            {
+                player.Volume = 0.5;
+                player.Play();
+            }
+            else
+            {
+                playNextSong();
+            }
         }
 
         public void Stop()
         {
-            player.Stop();
+            player.Dispatcher.Invoke(player.Stop);
         }
 
         public void FadeOut()
@@ -81,8 +103,8 @@ namespace MikeyPomodorosApp
         public void addSongsToPlaylist(List<string> filenames)
         {
             currentPlaylist = filenames.OrderBy(i => Guid.NewGuid()).ToList();
-            player.Open(new Uri(currentPlaylist[0], UriKind.Relative));
-            currentPlaylist.RemoveAt(0);
+            player.Dispatcher.Invoke(() => player.Open(new Uri(currentPlaylist[0], UriKind.Relative)));
+            playlistIndex = 1;
         }
 
     }
