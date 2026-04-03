@@ -25,6 +25,11 @@ namespace MikeyPomodorosApp.Config
             { 
                 string json = File.ReadAllText("pomodoro.config");
                 _config = JsonSerializer.Deserialize<PomodoroConfig>(json);
+                if (_config.UsePlaylist())
+                {
+                    var playlistjson = File.ReadAllText(_config.PlaylistLocation);
+                    _config.PomodoroPlaylist = JsonSerializer.Deserialize<PomodoroPlaylist>(playlistjson);
+                }
             }
             else
             {

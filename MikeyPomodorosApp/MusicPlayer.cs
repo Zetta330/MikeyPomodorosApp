@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MikeyPomodorosApp.Config;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,18 +18,31 @@ namespace MikeyPomodorosApp
         public List<string> longBreakSongs;
         public List<string> currentPlaylist;
         public int playlistIndex;
+        public int studyIndex = 1;
+        public int breakIndex = 1;
+        public int lbIndex = 1;
         public bool loop;
         private System.Timers.Timer fadeOutTimer;
 
         public MusicPlayer()
         {
             player = new MediaPlayer();
-            studySongs = Directory.GetFiles(@".\Study Music").ToList();
-            breakSongs = Directory.GetFiles(@".\Break Music").ToList();
-            longBreakSongs = Directory.GetFiles(@".\Long Break Music").ToList();
+            if (ConfigManager._config.UsePlaylist())
+            {
+                studySongs = ConfigManager._config.PomodoroPlaylist.StudySongs;
+                breakSongs = ConfigManager._config.PomodoroPlaylist.BreakSongs;
+                longBreakSongs = ConfigManager._config.PomodoroPlaylist.LongBreakSongs;
+            }
+            else
+            {
+                studySongs = Directory.GetFiles(@".\Study Music").ToList();
+                breakSongs = Directory.GetFiles(@".\Break Music").ToList();
+                longBreakSongs = Directory.GetFiles(@".\Long Break Music").ToList();
+            }
             player.MediaEnded += Player_MediaEnded;
             player.Volume = MainWindow.volumeSlider.Value / 100;
-            loop = false;
+            loop = true;
+            playlistIndex = 1;
         }
 
         private void Player_MediaEnded(object? sender, EventArgs e)
@@ -41,10 +55,11 @@ namespace MikeyPomodorosApp
             else
             {
                 playNextSong();
+                player.Play();
             }
         }
 
-        private void playNextSong()
+        public void playNextSong()
         {
             player.Open(new Uri(currentPlaylist[playlistIndex], UriKind.Relative));
             if (currentPlaylist.Count <= playlistIndex + 1 )
@@ -56,7 +71,6 @@ namespace MikeyPomodorosApp
             {
                 playlistIndex++;
             }
-            player.Play();
         }
 
         public void loadPlaylist(TimerType type)
@@ -84,6 +98,7 @@ namespace MikeyPomodorosApp
             else
             {
                 playNextSong();
+                player.Play();
             }
         }
 
@@ -114,13 +129,40 @@ namespace MikeyPomodorosApp
             player.Volume = volume/100;
         }
 
-
-        public void addSongsToPlaylist(List<string> filenames)
+        private void addSongsToPlaylist(List<string> filenames)
         {
-            currentPlaylist = filenames.OrderBy(i => Guid.NewGuid()).ToList();
-            player.Dispatcher.Invoke(() => player.Open(new Uri(currentPlaylist[0], UriKind.Relative)));
-            playlistIndex = 1;
+            currentPlaylist = ConfigManager._config.Shuffle ? filenames.OrderBy(i => Guid.NewGuid()).ToList() : filenames.ToList();
+            player.Dispatcher.Invoke(() => player.Open(new Uri(currentPlaylist[playlistIndex - 1 ], UriKind.Relative)));
         }
+
+        public void saveLoadPlaylistIndex(TimerType typefrom, TimerType typeTo)
+        {
+            switch (typefrom)
+            {
+                case TimerType.Study:
+                    studyIndex = playlistIndex + 1 ;
+                    break;
+                case TimerType.Break:
+                    breakIndex = playlistIndex + 1;
+                    break;
+                case TimerType.LongBreak:
+                    lbIndex = playlistIndex + 1;
+                    break;
+            }
+            switch (typeTo)
+            {
+                case TimerType.Study:
+                    playlistIndex = studyIndex;
+                    break;
+                case TimerType.Break:
+                    playlistIndex = breakIndex;
+                    break;
+                case TimerType.LongBreak:
+                    playlistIndex = lbIndex;
+                    break;
+            }
+        }
+
 
     }
 }

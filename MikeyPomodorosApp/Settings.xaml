@@ -1,0 +1,59 @@
+﻿<Window x:Class="MikeyPomodorosApp.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MikeyPomodorosApp"
+        mc:Ignorable="d"
+        Title="Settings" Height="450" Width="800">
+    <Grid Background="#FF1F1F1F">
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Height="66" Width="218" TextAlignment="Center" FontFamily="Comic Sans MS" Foreground="#FFDED6E5" FontSize="48" Margin="0,-3,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="22,89,0,0" TextWrapping="Wrap" Text="Study Minutes:" VerticalAlignment="Top" Width="136" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <TextBox x:Name="StudyMinsBox" HorizontalAlignment="Left" Margin="163,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" TextChanged="TextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="22,117,0,0" TextWrapping="Wrap" Text="Break Minutes:" VerticalAlignment="Top" Width="136" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <TextBox x:Name="BreakMinsBox" HorizontalAlignment="Left" Margin="163,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" TextChanged="TextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="10,147,0,0" TextWrapping="Wrap" Text="Long Break Mins:" VerticalAlignment="Top" Width="148" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <TextBox x:Name="LbMinsBox" HorizontalAlignment="Left" Margin="163,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" TextChanged="TextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="54" Margin="10,177,0,0" TextWrapping="Wrap" Text="Cycles Before Long Break:" VerticalAlignment="Top" Width="148" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <TextBox x:Name="CyclesBeforeLongBreakBox" HorizontalAlignment="Left" Margin="163,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" TextChanged="TextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="8,236,0,0" TextWrapping="Wrap" Text="Auto-Start Timer:" VerticalAlignment="Top" Width="164" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <CheckBox x:Name="AutoStartBox" Content="" HorizontalAlignment="Left" Margin="190,241,0,0" VerticalAlignment="Top" Height="16" Width="26" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="8,265,0,0" TextWrapping="Wrap" Text="Shuffle:" VerticalAlignment="Top" Width="164" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <CheckBox x:Name="ShuffleBox" Content="" HorizontalAlignment="Left" Margin="190,270,0,0" VerticalAlignment="Top" Height="16" Width="26" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="291,105,0,0" TextWrapping="Wrap" Text="Study Songs:" VerticalAlignment="Top" Width="136" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="427,108,87,263"/>
+        <Button x:Name="AddStudySongsButton" Content="Add" HorizontalAlignment="Left" Margin="291,135,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <Button x:Name="RemoveStudySongsButton" Content="Remove" HorizontalAlignment="Left" Margin="354,135,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="291,184,0,0" TextWrapping="Wrap" Text="Break Songs:" VerticalAlignment="Top" Width="136" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="427,187,87,184"/>
+        <Button x:Name="AddBreakSongsButton" Content="Add" HorizontalAlignment="Left" Margin="291,198,0,0"Margin="291,214,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <Button x:Name="RemoveBreakSongsButton" Content="Remove" HorizontalAlignment="Left" Margin="354,214,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="291,264,0,0" TextWrapping="Wrap" Text="L.B. Songs:" VerticalAlignment="Top" Width="136" Foreground="White" FontFamily="Comic Sans MS" FontSize="18"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="427,267,87,104"/>
+        <Button x:Name="AddLbSongsButton" Content="Add" HorizontalAlignment="Left" Margin="291,294,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <Button x:Name="RemoveLbSongsButton" Content="Remove" HorizontalAlignment="Left" Margin="354,294,0,0" VerticalAlignment="Top" Height="36" Width="46"/>
+        <Button x:Name="SavePlaylistButton" Content="Save Playlist" HorizontalAlignment="Left" Margin="291,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
+        <Button x:Name="LoadPlaylistButton" Content="Load Playlist" HorizontalAlignment="Left" Margin="400,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
+        <Button x:Name="ClearPlaylistButton" Content="Clear Playlist" HorizontalAlignment="Left" Margin="510,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
+        <Button x:Name="SaveExitButton" Content="Save and Exit" HorizontalAlignment="Left" Margin="78,357,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="291,69,0,0" TextWrapping="Wrap" Text="Current Playlist:" VerticalAlignment="Top" Width="422" Foreground="White" FontFamily="Comic Sans MS" FontSize="18" TextAlignment="Center"/>
+    </Grid>
+</Window>

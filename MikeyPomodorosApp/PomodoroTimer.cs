@@ -77,6 +77,7 @@ namespace MikeyPomodorosApp
                     breakSound.Play();
                     if (cyclesUntilLongBreak == 0)
                     {
+                        player.saveLoadPlaylistIndex(timerType, TimerType.LongBreak);
                         timerType = TimerType.LongBreak;
                         secondsLeft = ConfigManager._config.LongBreakTime * 60;
                         MainWindow.statusText.Dispatcher.Invoke(() => MainWindow.statusText.Text = "Long Break!");
@@ -85,16 +86,19 @@ namespace MikeyPomodorosApp
                     }
                     else
                     {
+                        player.saveLoadPlaylistIndex(timerType, TimerType.Break);
                         timerType = TimerType.Break;
                         secondsLeft = ConfigManager._config.BreakTime * 60;
                         MainWindow.statusText.Dispatcher.Invoke(() => MainWindow.statusText.Text = "Break Time!");
                         var timerText = $"{secondsLeft / 60}:{(secondsLeft % 60 < 10 ? "0" : "")}{secondsLeft % 60}";
                         MainWindow.timerText.Dispatcher.Invoke(() => MainWindow.timerText.Text = timerText);
+                        cyclesUntilLongBreak -= 1;
                     }
                 }
                 else
                 {
                     studySound.Play();
+                    player.saveLoadPlaylistIndex(timerType, TimerType.Study);
                     timerType = TimerType.Study;
                     secondsLeft = ConfigManager._config.StudyTime * 60;
                     MainWindow.statusText.Dispatcher.Invoke(() => MainWindow.statusText.Text = "Study Time!");
