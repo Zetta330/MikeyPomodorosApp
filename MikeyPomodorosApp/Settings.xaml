@@ -53,7 +53,7 @@
         <Button x:Name="SavePlaylistButton" Content="Save Playlist" HorizontalAlignment="Left" Margin="291,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
         <Button x:Name="LoadPlaylistButton" Content="Load Playlist" HorizontalAlignment="Left" Margin="400,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
         <Button x:Name="ClearPlaylistButton" Content="Clear Playlist" HorizontalAlignment="Left" Margin="510,357,0,0" VerticalAlignment="Top" Height="35" Width="86"/>
-        <Button x:Name="SaveExitButton" Content="Save and Exit" HorizontalAlignment="Left" Margin="78,357,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+        <Button x:Name="SaveExitButton" Content="Save and Exit" HorizontalAlignment="Left" Margin="78,357,0,0" VerticalAlignment="Top" Height="35" Width="94" Click="SaveExitButton_Click"/>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="291,69,0,0" TextWrapping="Wrap" Text="Current Playlist:" VerticalAlignment="Top" Width="422" Foreground="White" FontFamily="Comic Sans MS" FontSize="18" TextAlignment="Center"/>
     </Grid>
 </Window>
