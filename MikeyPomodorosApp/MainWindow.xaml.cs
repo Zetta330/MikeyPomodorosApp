@@ -17,15 +17,19 @@ namespace MikeyPomodorosApp;
 public partial class MainWindow : Window
 {
     public static Button startStopButton;
+    public static Button loopButton;
     public static TextBlock timerText;
     public static TextBlock statusText;
+    public static Slider volumeSlider;
     public PomodoroTimer pomodoroTimer;
     public MainWindow()
     {
         InitializeComponent();
         startStopButton = start_stop_button;
+        loopButton = loop_button;
         timerText = timer_text_block;
         statusText = status_text_block;
+        volumeSlider = volume_slider;
         pomodoroTimer = new PomodoroTimer();
     }
 
@@ -43,4 +47,26 @@ public partial class MainWindow : Window
         }
     }
 
+    private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (volumeSlider != null)
+        {
+            pomodoroTimer.player.ChangeVolume(volumeSlider.Value);
+        }
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        if (pomodoroTimer.player.loop)
+        {
+            pomodoroTimer.player.loop = false;
+            loopButton.Content = "Loop Off";
+
+        }
+        else
+        {
+            pomodoroTimer.player.loop = true;
+            loopButton.Content = "Loop On";
+        }
+    }
 }

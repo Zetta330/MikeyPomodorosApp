@@ -17,6 +17,7 @@ namespace MikeyPomodorosApp
         public List<string> longBreakSongs;
         public List<string> currentPlaylist;
         public int playlistIndex;
+        public bool loop;
         private System.Timers.Timer fadeOutTimer;
 
         public MusicPlayer()
@@ -26,11 +27,21 @@ namespace MikeyPomodorosApp
             breakSongs = Directory.GetFiles(@".\Break Music").ToList();
             longBreakSongs = Directory.GetFiles(@".\Long Break Music").ToList();
             player.MediaEnded += Player_MediaEnded;
+            player.Volume = MainWindow.volumeSlider.Value / 100;
+            loop = false;
         }
 
         private void Player_MediaEnded(object? sender, EventArgs e)
         {
-            playNextSong();
+            if (loop)
+            {
+                player.Position = TimeSpan.Zero;
+                player.Play();
+            }
+            else
+            {
+                playNextSong();
+            }
         }
 
         private void playNextSong()
@@ -68,7 +79,6 @@ namespace MikeyPomodorosApp
         {
             if (player.HasAudio == true)
             {
-                player.Volume = 0.5;
                 player.Play();
             }
             else
@@ -79,7 +89,7 @@ namespace MikeyPomodorosApp
 
         public void Stop()
         {
-            player.Dispatcher.Invoke(player.Stop);
+            player.Dispatcher.Invoke(player.Pause);
         }
 
         public void FadeOut()
@@ -97,6 +107,11 @@ namespace MikeyPomodorosApp
             {
                 fadeOutTimer.Stop();
             }
+        }
+
+        public void ChangeVolume(double volume)
+        {
+            player.Volume = volume/100;
         }
 
 

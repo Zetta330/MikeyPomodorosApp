@@ -7,9 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="#FF1F1F1F">
-        <Button Name="start_stop_button" Content="Start" HorizontalAlignment="Center" Margin="0,265,0,0" VerticalAlignment="Top" Height="100" Width="100" Click="Button_Click" IsDefault="True"/>
+        <Button Name="start_stop_button" Content="Start" HorizontalAlignment="Center" Margin="0,234,0,0" VerticalAlignment="Top" Height="100" Width="100" Click="Button_Click" IsDefault="True"/>
         <TextBlock Name="timer_text_block" TextWrapping="Wrap" Text="0:00" FontSize="144" FontWeight="Bold" FontFamily="Comic Sans MS" Margin="138,58,138,169" TextAlignment="Center" Foreground="#F0F0F0FF"/>
         <TextBlock Name = "status_text_block" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Study Time!" VerticalAlignment="Top" FontSize="36" TextAlignment="Center" Foreground="#FF4EE841" FontFamily="Comic Sans MS"/>
+        <Button x:Name="loop_button" Content="Loop Off" HorizontalAlignment="Left" Margin="10,353,0,0" VerticalAlignment="Top" Height="57" Width="57" Click="Button_Click_1"/>
+        <Slider x:Name="volume_slider" HorizontalAlignment="Left" Margin="98,392,0,0" VerticalAlignment="Top" Width="191" Maximum="100" SmallChange="0.01" Value="50" TickFrequency="0" ValueChanged="volumeSlider_ValueChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="173,366,0,0" TextWrapping="Wrap" Text="Volume" VerticalAlignment="Top" FontFamily="Comic Sans MS" Foreground="White"/>
 
     </Grid>
 </Window>
