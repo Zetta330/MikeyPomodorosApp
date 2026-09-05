@@ -69,4 +69,15 @@ public partial class MainWindow : Window
             loopButton.Content = "Loop On";
         }
     }
+
+    private void Button_Click_2(object sender, RoutedEventArgs e)
+    {
+        Settings settings = new Settings(this);
+        settings.Show();
+    }
+
+    public void ReloadConfig()
+    {
+        pomodoroTimer = new PomodoroTimer();
+    }
 }

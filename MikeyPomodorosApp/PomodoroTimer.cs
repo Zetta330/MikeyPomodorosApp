@@ -16,8 +16,8 @@ namespace MikeyPomodorosApp
         public int cyclesUntilLongBreak { get; set; }
         public TimerType timerType { get; set; }
         public System.Timers.Timer seconds { get; set; }
-        private static SoundPlayer studySound = new SoundPlayer(@".\Sounds\studytime.wav");
-        private static SoundPlayer breakSound = new SoundPlayer(@".\Sounds\breaktime.wav");
+        private static SoundPlayer studySound = ConfigManager._config.PomodoroPlaylist.StudyAlarm != null ? new SoundPlayer(ConfigManager._config.PomodoroPlaylist.StudyAlarm) : new SoundPlayer(@".\Sounds\studytime.wav");
+        private static SoundPlayer breakSound = ConfigManager._config.PomodoroPlaylist.BreakAlarm != null ? new SoundPlayer(ConfigManager._config.PomodoroPlaylist.BreakAlarm) : new SoundPlayer(@".\Sounds\breaktime.wav");
         public MusicPlayer player;
 
 
